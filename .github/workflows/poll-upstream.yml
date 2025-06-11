@@ -1,0 +1,19 @@
+name: Poll for upstream updates
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 16 * * 0'
+
+jobs:
+  poll-updates:
+    name: Execute merge-upstream
+    permissions:
+      contents: write
+      pull-requests: write
+      actions: write
+    uses: ./.github/workflows/sync-upstream.yml
+    with:
+      source: https://github.com/aesprite/aesprite
+      source_branch: main
+      target_branch: main
+    secrets: inherit
